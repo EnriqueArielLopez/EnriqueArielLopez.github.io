@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none" font-family="Mono, monospace">
+  <ellipse cx="600" cy="812" rx="360" ry="22" fill="#24232118"/>
+  <g stroke="#242321" stroke-width="3" stroke-dasharray="10 9" stroke-linecap="round" opacity=".55">
+    <path d="M520 330C400 260 300 250 220 300"/>
+    <path d="M520 470C380 480 300 540 250 620"/>
+    <path d="M690 300C800 220 900 220 980 270"/>
+    <path d="M690 520C820 540 900 600 950 680"/>
+  </g>
+  <rect x="470" y="150" width="270" height="560" rx="38" fill="#fbfaf6" stroke="#242321" stroke-width="4"/>
+  <rect x="492" y="196" width="226" height="464" rx="10" fill="#f3f0e9" stroke="#242321" stroke-width="2"/>
+  <path d="M570 172h70" stroke="#242321" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="605" cy="684" r="10" stroke="#242321" stroke-width="2.5"/>
+  <circle cx="530" cy="236" r="20" fill="#c93627" stroke="#242321" stroke-width="2.5"/>
+  <path d="M562 228h110M562 246h70" stroke="#242321" stroke-width="3" stroke-linecap="round"/>
+  <g stroke="#242321" stroke-width="2.5">
+    <rect x="508" y="284" width="62" height="62" fill="#e8b64c"/><rect x="574" y="284" width="62" height="62" fill="#fbfaf6"/><rect x="640" y="284" width="62" height="62" fill="#c93627"/>
+    <rect x="508" y="350" width="62" height="62" fill="#fbfaf6"/><rect x="574" y="350" width="62" height="62" fill="#242321"/><rect x="640" y="350" width="62" height="62" fill="#fbfaf6"/>
+    <rect x="508" y="416" width="62" height="62" fill="#fbfaf6"/><rect x="574" y="416" width="62" height="62" fill="#fbfaf6"/><rect x="640" y="416" width="62" height="62" fill="#e8b64c"/>
+  </g>
+  <path d="M520 512h170M520 536h120M520 560h150" stroke="#242321" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+  <rect x="520" y="592" width="170" height="44" rx="22" fill="#242321"/>
+  <text x="547" y="620" font-size="17" fill="#f3f0e9">escribir ↗</text>
+  <g transform="rotate(-8 830 470)">
+    <circle cx="790" cy="430" r="78" fill="#fbfaf6" fill-opacity=".55" stroke="#242321" stroke-width="5"/>
+    <path d="M846 488l70 74" stroke="#242321" stroke-width="16" stroke-linecap="round"/>
+    <path d="M752 404c10-18 28-26 46-24" stroke="#242321" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g font-size="20" fill="#242321">
+    <rect x="120" y="262" width="190" height="52" rx="26" fill="#fbfaf6" stroke="#242321" stroke-width="2.5"/><text x="146" y="295">@cafe.lola</text>
+    <rect x="150" y="610" width="200" height="52" rx="26" fill="#e8b64c" stroke="#242321" stroke-width="2.5"/><text x="174" y="643">@estudio.mar</text>
+    <rect x="910" y="232" width="190" height="52" rx="26" fill="#fbfaf6" stroke="#242321" stroke-width="2.5"/><text x="934" y="265">@pastas.dn</text>
+    <rect x="880" y="668" width="200" height="52" rx="26" fill="#fbfaf6" stroke="#242321" stroke-width="2.5"/><text x="904" y="701">@barber.sur</text>
+  </g>
+  <path d="M1040 650l14-24 14 24-14 10z" fill="#c93627" stroke="#242321" stroke-width="2"/>
+  <text x="140" y="810" font-size="18" fill="#242321" opacity=".7">boceto · nexo · 2026</text>
+</svg>
