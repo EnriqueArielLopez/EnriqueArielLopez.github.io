@@ -179,3 +179,33 @@ body[data-motion=off] .steam{opacity:.6}
 @media(max-width:850px){.desk{height:300px}.tech-bubbles li img{width:46px;height:46px;padding:10px}}
 @media(max-width:600px){.desk{height:auto;width:min(100%,420px)}.tech-bubbles li img{width:40px;height:40px;padding:8px}.tech-bubbles li span{font-size:8px;padding:3px 5px}}
 .desk-screen text{white-space:pre}
+
+.tech-bubbles li span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tech-bubbles li img{border:2px solid transparent;background:linear-gradient(#fffdf8,#fff6e6) padding-box,linear-gradient(140deg,#c93627,#e8b64c 55%,#7a8cf0) border-box}
+.tech-bubbles li:hover img{background:linear-gradient(#fff,#fff) padding-box,linear-gradient(140deg,#e8b64c,#c93627) border-box}
+
+body{background:linear-gradient(180deg,#f6f2ea 0%,#efe9dd 100%)}
+.reading-progress{background:linear-gradient(90deg,#c93627,#e8b64c,#7a8cf0)}
+.header{background:linear-gradient(180deg,#f6f2eaf2,#f3efe6e0)}
+.header-contact{padding:0 18px;border-radius:30px;color:#fff;background:linear-gradient(120deg,#c93627,#e0662f 60%,#e8a33c);box-shadow:0 6px 16px #c9362733}
+.header-contact:hover{color:#fff;filter:brightness(1.07)}
+.hero{background:radial-gradient(ellipse 45% 55% at 72% 38%,#e8b64c38,transparent 70%),radial-gradient(ellipse 35% 45% at 8% 85%,#c9362722,transparent 70%),radial-gradient(ellipse 30% 35% at 95% 90%,#7a8cf022,transparent 70%)}
+h1 .name-line{background:linear-gradient(175deg,#242321 40%,#5a2a1c 78%,#c93627 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .name-point,.brand>span{background:linear-gradient(135deg,#c93627,#e8a33c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.text-link{background-image:linear-gradient(90deg,#c93627,#e8b64c);background-size:100% 2px;background-repeat:no-repeat;background-position:0 100%}
+.work-heading{background:linear-gradient(180deg,transparent,#efe9dd)}
+#work-title{background:linear-gradient(100deg,#242321 30%,#c93627);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nexo-panel{background:radial-gradient(ellipse 60% 70% at 75% 30%,#f7cdb6,transparent 70%),linear-gradient(150deg,#efbba3,#e09a86 60%,#d18690)}
+.folio-panel{background:radial-gradient(ellipse 55% 65% at 80% 25%,#3f5bc466,transparent 70%),radial-gradient(ellipse 40% 50% at 10% 90%,#cbe87926,transparent 70%),linear-gradient(160deg,#142153,#1c2d73 55%,#0e173d)}
+.lote-panel{background:radial-gradient(ellipse 55% 60% at 80% 30%,#ffffffb0,transparent 70%),linear-gradient(150deg,#efe7e3,#e3d3d3 55%,#d8c3cc)}
+.glass-action{background:linear-gradient(135deg,#ffffffb0,#ffffff55)}
+.folio-panel .glass-action{background:linear-gradient(135deg,#b7d0ff30,#b7d0ff0d)}
+.profile{background:radial-gradient(ellipse 40% 50% at 15% 20%,#e8b64c30,transparent 70%),radial-gradient(ellipse 40% 45% at 90% 85%,#c9362718,transparent 70%),linear-gradient(180deg,#ebe5d9,#e2dacb)}
+.portrait-frame{background:linear-gradient(170deg,#fffdf6,#f3ead8)}
+.tags>span{border-color:transparent;background:linear-gradient(#f7f2e8,#f1eadc) padding-box,linear-gradient(120deg,#c9362799,#e8b64c99) border-box}
+.pill-link{border:1px solid transparent;background:linear-gradient(#f5f0e6,#f5f0e6) padding-box,linear-gradient(120deg,#c93627,#e8b64c) border-box}
+.pill-link:hover{color:#fff;background:linear-gradient(120deg,#c93627,#e0662f 60%,#e8a33c) border-box}
+.journey{background:linear-gradient(180deg,#f3efe6,#ece5d7)}
+.small-tag{background:linear-gradient(120deg,#e8b64c40,#c9362722);border-radius:20px}
+.contact{background:radial-gradient(ellipse 50% 60% at 85% 15%,#e8a33c88,transparent 70%),radial-gradient(ellipse 45% 55% at 5% 95%,#5a1a1299,transparent 70%),linear-gradient(140deg,#d2402c,#c93627 45%,#9c2418)}
+footer{background:linear-gradient(90deg,#242321,#3a2420)!important;color:#f3f0e9!important}
