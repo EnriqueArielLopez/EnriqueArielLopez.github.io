@@ -159,58 +159,82 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
   document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
 }
 const desk = document.querySelector('.desk');
-const bubbles = [...desk.querySelectorAll('.tech-bubbles li')];
-function placeBubbles() {
+const stack = desk.querySelector('.stack');
+const orbitItems = [...desk.querySelectorAll('.orbit li')];
+const rings = [{ count: 6, radius: .8, speed: .00005, tilt: .36 }, { count: orbitItems.length - 6, radius: 1.12, speed: -.000032, tilt: .5 }];
+const motionOn = () => document.body.dataset.motion !== 'off';
+let open = 0, openTarget = 0, spin = 0, lastFrame = performance.now(), tiltX = 0, tiltY = 0, tiltTargetX = 0, tiltTargetY = 0;
+function setDesk(state) {
+  openTarget = state ? 1 : 0;
+  desk.classList.toggle('is-open', state);
+  desk.setAttribute('aria-expanded', String(state));
+}
+desk.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') setDesk(true); });
+desk.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { setDesk(false); tiltTargetX = tiltTargetY = 0; } });
+desk.addEventListener('pointermove', event => {
   const rect = desk.getBoundingClientRect();
-  const center = rect.left + rect.width / 2;
-  const room = Math.min(center, document.documentElement.clientWidth - center) - 42;
-  const rx = Math.min(rect.width * (innerWidth > 600 ? .58 : .42), room), ry = rect.height * .47;
-  bubbles.forEach((bubble, i) => {
-    const angle = -Math.PI / 2 + (i / bubbles.length) * Math.PI * 2;
-    const wobble = i % 2 ? 1 : .86;
-    bubble.style.setProperty('--x', `${Math.cos(angle) * rx * wobble}px`);
-    bubble.style.setProperty('--y', `${Math.sin(angle) * ry * wobble}px`);
-    bubble.style.setProperty('--n', i);
-    bubble.style.setProperty('--t', `${2.6 + (i % 4) * .45}s`);
-  });
-}
-placeBubbles();
-addEventListener('resize', placeBubbles, { passive: true });
-function setDesk(open) {
-  desk.classList.toggle('is-open', open);
-  desk.setAttribute('aria-expanded', String(open));
-}
-desk.addEventListener('click', () => setDesk(!desk.classList.contains('is-open')));
+  tiltTargetY = ((event.clientX - rect.left) / rect.width - .5) * 16;
+  tiltTargetX = ((event.clientY - rect.top) / rect.height - .5) * -12;
+});
+desk.addEventListener('click', event => { if (event.pointerType !== 'mouse') setDesk(openTarget === 0); });
 desk.addEventListener('keydown', event => {
-  if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setDesk(!desk.classList.contains('is-open')); }
+  if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setDesk(openTarget === 0); }
   if (event.key === 'Escape') setDesk(false);
 });
-desk.addEventListener('mouseleave', () => setDesk(false));
-const codeLines = [...desk.querySelectorAll('.code-line')].map(line => ({ line, spans: [...line.querySelectorAll('tspan')].map(span => [span, span.textContent]), text: line.querySelector('tspan') ? null : line.textContent }));
-const cursor = desk.querySelector('.code-cursor');
-function showLine(item, count) {
-  if (item.text !== null) { item.line.textContent = item.text.slice(0, count); return; }
-  let left = count;
-  item.spans.forEach(([span, full]) => { span.textContent = full.slice(0, Math.max(0, left)); left -= full.length; });
+function drawOrbit(now) {
+  const delta = Math.min(50, now - lastFrame);
+  lastFrame = now;
+  const moving = motionOn();
+  open += (openTarget - open) * (moving ? .09 : 1);
+  if (moving && open > .01) spin += delta;
+  tiltX += (tiltTargetX - tiltX) * .08;
+  tiltY += (tiltTargetY - tiltY) * .08;
+  stack.style.transform = `scale(${1 - .24 * open}) ` + (moving ? `rotateX(${8 + tiltX}deg) rotateY(${-14 + tiltY}deg)` : 'rotateX(8deg) rotateY(-14deg)');
+  const rect = desk.getBoundingClientRect();
+  const room = Math.min(rect.left + rect.width / 2, document.documentElement.clientWidth - rect.left - rect.width / 2) - 34;
+  let index = 0;
+  rings.forEach((ring, ringIndex) => {
+    const rx = Math.min(rect.width * ring.radius * .5, room) * (.35 + .65 * open);
+    const ry = rect.height * ring.tilt * (.35 + .65 * open);
+    for (let i = 0; i < ring.count; i++, index++) {
+      const angle = (i / ring.count) * Math.PI * 2 + spin * ring.speed * Math.PI * 2 + ringIndex * .4;
+      const depth = Math.sin(angle);
+      const scale = (.72 + .28 * (depth + 1) / 2) * (.4 + .6 * open);
+      const item = orbitItems[index];
+      item.style.transform = `translate(-50%, -50%) translate(${Math.cos(angle) * rx}px, ${depth * ry}px) scale(${scale})`;
+      item.style.opacity = String(open * (.55 + .45 * (depth + 1) / 2));
+      item.style.zIndex = depth > 0 ? 5 : 1;
+      item.style.filter = depth > 0 ? '' : `blur(${(-depth * 1.2 * open).toFixed(2)}px)`;
+    }
+  });
+  requestAnimationFrame(drawOrbit);
 }
-const lineLength = item => item.text ?? item.spans.reduce((total, [, full]) => total + full, '');
-function moveCursor(item) {
-  const box = item.line.getBBox();
-  cursor.setAttribute('x', box.x + box.width + 2);
-  cursor.setAttribute('y', Number(item.line.getAttribute('y')) - 10);
+requestAnimationFrame(drawOrbit);
+const codeLines = [...desk.querySelectorAll('.code-line')].map(line => ({ line, html: line.innerHTML, length: line.textContent.length }));
+const cursor = desk.querySelector('.code-cursor');
+function sliceHtml(html, count) {
+  let out = '', shown = 0;
+  for (const part of html.split(/(<[^>]+>|&[a-z]+;)/)) {
+    if (!part) continue;
+    if (part.startsWith('<')) { out += part; continue; }
+    if (part.startsWith('&')) { if (shown < count) { out += part; shown++; } continue; }
+    const take = part.slice(0, Math.max(0, count - shown));
+    out += take; shown += take.length;
+  }
+  return out;
 }
 let typing;
 function typeCode() {
   clearTimeout(typing);
-  if (document.body.dataset.motion === 'off') { codeLines.forEach(item => showLine(item, 999)); moveCursor(codeLines.at(-1)); return; }
-  codeLines.forEach(item => showLine(item, 0));
+  if (!motionOn()) { codeLines.forEach(item => { item.line.innerHTML = item.html; }); codeLines.at(-1).line.after(cursor); return; }
+  codeLines.forEach(item => { item.line.innerHTML = ''; });
   let lineIndex = 0, char = 0;
   const step = () => {
     const item = codeLines[lineIndex];
-    showLine(item, ++char);
-    moveCursor(item);
-    if (char >= lineLength(item).length) { lineIndex++; char = 0; }
-    if (lineIndex < codeLines.length) typing = setTimeout(step, char === 0 ? 380 : 45 + Math.random() * 70);
+    item.line.innerHTML = sliceHtml(item.html, ++char);
+    item.line.after(cursor);
+    if (char >= item.length) { lineIndex++; char = 0; }
+    if (lineIndex < codeLines.length) typing = setTimeout(step, char === 0 ? 350 : 40 + Math.random() * 65);
     else typing = setTimeout(typeCode, 4500);
   };
   step();
