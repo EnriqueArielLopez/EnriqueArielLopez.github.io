@@ -162,7 +162,9 @@ const desk = document.querySelector('.desk');
 const bubbles = [...desk.querySelectorAll('.tech-bubbles li')];
 function placeBubbles() {
   const rect = desk.getBoundingClientRect();
-  const rx = rect.width * (innerWidth > 600 ? .58 : .42), ry = rect.height * .47;
+  const center = rect.left + rect.width / 2;
+  const room = Math.min(center, document.documentElement.clientWidth - center) - 42;
+  const rx = Math.min(rect.width * (innerWidth > 600 ? .58 : .42), room), ry = rect.height * .47;
   bubbles.forEach((bubble, i) => {
     const angle = -Math.PI / 2 + (i / bubbles.length) * Math.PI * 2;
     const wobble = i % 2 ? 1 : .86;
